@@ -19,15 +19,8 @@ html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--border2);}
 
-/* LOGIN — fixed full screen overlay, always on top */
-#login-screen{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,255,0.07) 0%,var(--bg) 60%);
-}
+#login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,255,0.07) 0%,var(--bg) 60%);}
 #login-screen.hidden{display:none;}
-
 .login-box{width:360px;border:1px solid var(--border);background:var(--bg2);padding:48px 40px;position:relative;}
 .login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
 .login-logo{font-family:var(--font-display);font-size:2.8rem;font-weight:800;color:var(--accent);letter-spacing:-2px;margin-bottom:4px;}
@@ -39,7 +32,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .login-btn:hover{background:var(--accent2);}
 .login-error{color:var(--red);font-size:0.8rem;font-family:var(--font-mono);margin-top:12px;display:none;}
 
-/* APP */
 #app-screen{display:flex;height:100vh;overflow:hidden;}
 .sidebar{width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
 .sidebar-logo{padding:28px 24px 24px;border-bottom:1px solid var(--border);}
@@ -58,14 +50,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .page-title{font-family:var(--font-display);font-size:1.8rem;font-weight:700;letter-spacing:-0.5px;}
 .page-sub{font-size:0.78rem;color:var(--text3);font-family:var(--font-mono);margin-top:4px;}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-family:var(--font-body);font-weight:600;font-size:0.82rem;cursor:pointer;border:1px solid transparent;border-radius:6px;transition:all .15s;text-decoration:none;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-family:var(--font-body);font-weight:600;font-size:0.82rem;cursor:pointer;border:1px solid transparent;border-radius:6px;transition:all .15s;}
 .btn-primary{background:var(--accent);color:#000;}.btn-primary:hover{background:var(--accent2);}
 .btn-ghost{background:transparent;border-color:var(--border2);color:var(--text2);}.btn-ghost:hover{border-color:var(--text2);color:var(--text);}
 .btn-danger{background:transparent;border-color:var(--red2);color:var(--red);}.btn-danger:hover{background:rgba(255,77,109,0.1);}
 .btn-sm{padding:6px 12px;font-size:0.78rem;}
 
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
 .stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px;position:relative;overflow:hidden;border-radius:8px;}
 .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
@@ -76,14 +66,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .stat-card.c-blue .stat-value{color:var(--accent);}.stat-card.c-green .stat-value{color:var(--green);}
 .stat-card.c-orange .stat-value{color:var(--orange);}.stat-card.c-purple .stat-value{color:var(--purple);}
 
-/* PRODUCT GRID */
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
 .prod-stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;}
 .prod-stat-name{font-size:0.78rem;color:var(--text2);margin-bottom:4px;}
 .prod-stat-rev{font-family:var(--font-mono);font-size:0.9rem;color:var(--green);font-weight:500;}
 .prod-stat-count{font-family:var(--font-mono);font-size:1.2rem;font-weight:500;color:var(--text3);}
 
-/* FILTER */
 .filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
 .filter-group{display:flex;flex-direction:column;gap:5px;}
 .filter-label{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;}
@@ -91,7 +79,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .filter-input:focus,.filter-select:focus{border-color:var(--accent);}
 .filter-select option{background:var(--bg3);}
 
-/* TABLE */
 .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
 table{width:100%;border-collapse:collapse;}
 thead tr{background:var(--bg3);border-bottom:1px solid var(--border);}
@@ -101,13 +88,11 @@ tbody tr:last-child{border-bottom:none;}
 tbody tr:hover{background:var(--bg3);}
 td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 
-/* BADGES */
 .badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:var(--font-mono);font-size:0.65rem;font-weight:500;margin:1px 2px 1px 0;}
 .badge-waiting{background:rgba(255,170,0,0.12);color:var(--orange);border:1px solid rgba(255,170,0,0.3);}
 .badge-done{background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.25);}
 .badge-rejected{background:rgba(255,77,109,0.1);color:var(--red);border:1px solid rgba(255,77,109,0.25);}
 
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:5000;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;}
@@ -119,7 +104,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .modal-body{padding:24px 28px;}
 .modal-footer{padding:16px 28px 24px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--border);}
 
-/* FORM */
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
 .form-row.single{grid-template-columns:1fr;}
 .form-group{display:flex;flex-direction:column;gap:6px;}
@@ -136,7 +120,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .product-item-name{font-size:0.82rem;color:var(--text);}
 .product-item-rev{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);}
 
-/* DETAIL */
 .detail-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
 .detail-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
 .detail-card-title{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
@@ -162,16 +145,34 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .empty{text-align:center;padding:60px 20px;color:var(--text3);}
 .empty-icon{font-size:2.5rem;margin-bottom:12px;opacity:0.4;}
 
-/* TOAST */
+/* LOADING OVERLAY */
+#loading-overlay{position:fixed;inset:0;background:rgba(8,11,15,0.85);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#loading-overlay.show{display:flex;}
+.spinner{width:32px;height:32px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-family:var(--font-mono);font-size:0.75rem;color:var(--text3);letter-spacing:1px;}
+
 .toast{position:fixed;bottom:24px;right:24px;background:var(--bg3);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:6px;font-size:0.82rem;font-family:var(--font-mono);transform:translateY(100px);opacity:0;transition:all .3s;z-index:9999;}
 .toast.show{transform:translateY(0);opacity:1;}
+.toast.error{border-color:var(--red);color:var(--red);}
+
+/* SYNC indicator */
+.sync-status{font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);display:flex;align-items:center;gap:6px;margin-top:6px;}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+.sync-dot.syncing{background:var(--orange);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
-<!-- LOGIN (fixed overlay, always rendered, hidden after auth) -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">Загрузка...</div>
+</div>
+
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">RKO</div>
@@ -182,7 +183,7 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
   </div>
 </div>
 
-<!-- APP (hidden until login) -->
+<!-- APP -->
 <div id="app-screen" style="display:none;">
   <aside class="sidebar">
     <div class="sidebar-logo">
@@ -200,7 +201,11 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
       </div>
     </nav>
     <div class="sidebar-bottom">
-      <button class="logout-btn" onclick="doLogout()">
+      <div class="sync-status" id="sync-status">
+        <div class="sync-dot" id="sync-dot"></div>
+        <span id="sync-text">Синхронизировано</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" style="margin-top:8px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span>Выйти</span>
       </button>
@@ -208,7 +213,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
   </aside>
 
   <main class="main">
-    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="page-header">
         <div><div class="page-title">Дашборд</div><div class="page-sub" id="dash-date"></div></div>
@@ -226,7 +230,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
       </table></div>
     </div>
 
-    <!-- LEADS -->
     <div class="page" id="page-leads">
       <div class="page-header">
         <div><div class="page-title">Лиды</div><div class="page-sub" id="leads-sub"></div></div>
@@ -259,7 +262,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
       </table></div>
     </div>
 
-    <!-- DETAIL -->
     <div class="page" id="page-detail">
       <div class="page-header">
         <div><div class="page-title" id="detail-name"></div><div class="page-sub" id="detail-date"></div></div>
@@ -323,6 +325,8 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 
 <script>
 const PWD = '200718';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwm0ZzmrPwY9QuQ80SHUxAQ1oWoYZdPeJXNdyroQmmCHFj2Jl3-6IdTgEY0CPDcLN0Ffg/exec';
+
 const PRODS = [
   {key:'alfa',         name:'РегБиз + РКО Альфа', short:'Альфа', rev:9600,  cd:1200},
   {key:'vtb',          name:'РКО ВТБ',             short:'ВТБ',   rev:5000,  cd:0},
@@ -334,22 +338,48 @@ const PRODS = [
 ];
 const DOPL=3400, LIDOV=3000;
 let currentId=null;
+let leadsCache=[];
 
-const getLeads=()=>JSON.parse(localStorage.getItem('rko_leads')||'[]');
-const saveLeads=d=>localStorage.setItem('rko_leads',JSON.stringify(d));
+// ── API ──────────────────────────────────────────────────────
+function setSyncing(yes){
+  const dot=document.getElementById('sync-dot');
+  const txt=document.getElementById('sync-text');
+  if(yes){dot.classList.add('syncing');txt.textContent='Синхронизация...';}
+  else{dot.classList.remove('syncing');txt.textContent='Синхронизировано';}
+}
+
+async function apiGetLeads(){
+  const r=await fetch(SCRIPT_URL+'?action=getLeads');
+  const d=await r.json();
+  return d.leads||[];
+}
+
+async function apiSaveLeads(leads){
+  setSyncing(true);
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'saveLeads',leads})});
+    setSyncing(false);
+  }catch(e){
+    setSyncing(false);
+    showToast('Ошибка синхронизации!',true);
+  }
+}
+
+function showLoading(text='Загрузка...'){
+  document.getElementById('loading-text').textContent=text;
+  document.getElementById('loading-overlay').classList.add('show');
+}
+function hideLoading(){document.getElementById('loading-overlay').classList.remove('show');}
+
 const genId=()=>Date.now()+'-'+Math.random().toString(36).substr(2,5);
 const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
 
 function calcFin(lead){
   let rev=0,cd=0,hasDone=false;
   (lead.products||[]).forEach(p=>{
-    if(p.status==='done'){
-      const pr=PRODS.find(x=>x.key===p.key);
-      if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}
-    }
+    if(p.status==='done'){const pr=PRODS.find(x=>x.key===p.key);if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}}
   });
-  const dopl=hasDone?DOPL:0;
-  const lid=lead.has_referrer?LIDOV:0;
+  const dopl=hasDone?DOPL:0;const lid=lead.has_referrer?LIDOV:0;
   return{rev,cd,dopl,lid,net:rev-cd-dopl-lid};
 }
 
@@ -379,20 +409,26 @@ function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  const nav=document.getElementById('nav-'+name);
-  if(nav) nav.classList.add('active');
+  const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');
   if(name==='dashboard') renderDashboard();
   if(name==='leads') renderLeads();
 }
 
-function initApp(){
+async function initApp(){
   document.getElementById('dash-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  renderDashboard();
+  showLoading('Загружаем данные из Google Sheets...');
+  try{
+    leadsCache=await apiGetLeads();
+    hideLoading();
+    renderDashboard();
+  }catch(e){
+    hideLoading();
+    showToast('Не удалось загрузить данные',true);
+  }
 }
 
-// RENDER DASHBOARD
 function renderDashboard(){
-  const leads=getLeads();
+  const leads=leadsCache;
   let totalRev=0,totalNet=0,totalDone=0;
   leads.forEach(l=>{const f=calcFin(l);totalRev+=f.rev;totalNet+=f.net;(l.products||[]).forEach(p=>{if(p.status==='done')totalDone++;});});
   document.getElementById('stats-grid').innerHTML=`
@@ -402,8 +438,7 @@ function renderDashboard(){
     <div class="stat-card c-purple"><div class="stat-label">Оформлено продуктов</div><div class="stat-value">${totalDone}</div></div>
   `;
   document.getElementById('product-grid').innerHTML=PRODS.map(p=>{
-    let cnt=0,r=0;
-    leads.forEach(l=>(l.products||[]).forEach(lp=>{if(lp.key===p.key&&lp.status==='done'){cnt++;r+=p.rev;}}));
+    let cnt=0,r=0;leads.forEach(l=>(l.products||[]).forEach(lp=>{if(lp.key===p.key&&lp.status==='done'){cnt++;r+=p.rev;}}));
     return`<div class="prod-stat"><div><div class="prod-stat-name">${p.name}</div><div class="prod-stat-rev">${fmt(r)}</div></div><div class="prod-stat-count">${cnt}</div></div>`;
   }).join('');
   const recent=[...leads].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
@@ -416,7 +451,7 @@ function renderLeads(){
   const sf=document.getElementById('f-status')?.value||'';
   const df=document.getElementById('f-from')?.value||'';
   const dt=document.getElementById('f-to')?.value||'';
-  let leads=getLeads().sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  let leads=[...leadsCache].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   if(q) leads=leads.filter(l=>l.name.toLowerCase().includes(q)||(l.phone||'').includes(q)||(l.invited_by||'').toLowerCase().includes(q));
   if(pf) leads=leads.filter(l=>(l.products||[]).some(p=>p.key===pf));
   if(sf) leads=leads.filter(l=>(l.products||[]).some(p=>p.status===sf));
@@ -447,8 +482,7 @@ function leadsRows(leads){
 
 function openDetail(id){
   currentId=id;
-  const lead=getLeads().find(l=>l.id===id);
-  if(!lead) return;
+  const lead=leadsCache.find(l=>l.id===id);if(!lead) return;
   const f=calcFin(lead);
   document.getElementById('detail-name').textContent=lead.name;
   document.getElementById('detail-date').textContent=lead.created_at?new Date(lead.created_at).toLocaleDateString('ru-RU'):'';
@@ -463,8 +497,7 @@ function openDetail(id){
   const prodsHtml=(lead.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{
     const pr=PRODS.find(x=>x.key===p.key);if(!pr) return'';
     return`<div class="prod-detail-item">
-      <div class="prod-detail-left">
-        <div class="status-dot dot-${p.status}"></div>
+      <div class="prod-detail-left"><div class="status-dot dot-${p.status}"></div>
         <div><div class="prod-detail-name">${pr.name}</div>${p.date?`<div class="prod-detail-date">${p.date}</div>`:''}</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
@@ -517,7 +550,7 @@ function openAddModal(){
 }
 
 function openEditModal(id){
-  const lead=getLeads().find(l=>l.id===id);if(!lead) return;
+  const lead=leadsCache.find(l=>l.id===id);if(!lead) return;
   document.getElementById('modal-title').textContent='Редактировать лид';
   document.getElementById('edit-id').value=id;
   document.getElementById('fi-name').value=lead.name;
@@ -532,26 +565,27 @@ function openEditModal(id){
 
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
 
-function saveLead(){
+async function saveLead(){
   const name=document.getElementById('fi-name').value.trim();
   if(!name){alert('Введи имя!');return;}
   const products=PRODS.map(p=>({key:p.key,status:document.getElementById('ps-'+p.key)?.value||'none',date:document.getElementById('pd-'+p.key)?.value||''})).filter(p=>p.status!=='none');
   const editId=document.getElementById('edit-id').value;
   const dateVal=document.getElementById('fi-date').value;
-  const leads=getLeads();
   if(editId){
-    const idx=leads.findIndex(l=>l.id===editId);
-    if(idx!==-1) leads[idx]={...leads[idx],name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':leads[idx].created_at};
-    saveLeads(leads);closeModal();showToast('Лид обновлён ✓');openDetail(editId);
+    const idx=leadsCache.findIndex(l=>l.id===editId);
+    if(idx!==-1) leadsCache[idx]={...leadsCache[idx],name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':leadsCache[idx].created_at};
+    closeModal();showToast('Лид обновлён ✓');openDetail(editId);
   } else {
-    leads.push({id:genId(),name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()});
-    saveLeads(leads);closeModal();showToast('Лид добавлен ✓');renderDashboard();
+    leadsCache.push({id:genId(),name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()});
+    closeModal();showToast('Лид добавлен ✓');renderDashboard();
   }
+  await apiSaveLeads(leadsCache);
 }
 
-function deleteLead(id){
+async function deleteLead(id){
   if(!confirm('Удалить лида? Это нельзя отменить.')) return;
-  saveLeads(getLeads().filter(l=>l.id!==id));
+  leadsCache=leadsCache.filter(l=>l.id!==id);
+  await apiSaveLeads(leadsCache);
   showToast('Лид удалён');showPage('leads');
 }
 
@@ -561,12 +595,12 @@ function clearFilters(){
   renderLeads();
 }
 
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+function showToast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(err?' error':'');
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// INIT — block app if not authed, use sessionStorage (clears on tab close)
 window.addEventListener('DOMContentLoaded',()=>{
   if(sessionStorage.getItem('rko_ok')==='1'){
     document.getElementById('login-screen').classList.add('hidden');
