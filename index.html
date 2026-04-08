@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKO · Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080b0f;--bg2:#0d1117;--bg3:#131920;--border:#1e2d3d;--border2:#243447;
+  --text:#c9d8e8;--text2:#6b8299;--text3:#3d5269;
+  --accent:#00d4ff;--accent2:#0099bb;--green:#00e5a0;--green2:#00b87d;
+  --red:#ff4d6d;--red2:#cc1f3e;--orange:#ffaa00;--purple:#9b6dff;
+  --font-display:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-body:'Manrope',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--border2);}
+
+/* LOGIN — fixed full screen overlay, always on top */
+#login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,255,0.07) 0%,var(--bg) 60%);
+}
+#login-screen.hidden{display:none;}
+
+.login-box{width:360px;border:1px solid var(--border);background:var(--bg2);padding:48px 40px;position:relative;}
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.login-logo{font-family:var(--font-display);font-size:2.8rem;font-weight:800;color:var(--accent);letter-spacing:-2px;margin-bottom:4px;}
+.login-sub{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;}
+.login-input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:1.1rem;padding:14px 16px;outline:none;letter-spacing:4px;transition:border-color .2s;margin-bottom:16px;}
+.login-input:focus{border-color:var(--accent);}
+.login-input::placeholder{letter-spacing:2px;color:var(--text3);font-size:0.8rem;}
+.login-btn{width:100%;background:var(--accent);color:#000;border:none;font-family:var(--font-display);font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;padding:14px;cursor:pointer;transition:background .2s;}
+.login-btn:hover{background:var(--accent2);}
+.login-error{color:var(--red);font-size:0.8rem;font-family:var(--font-mono);margin-top:12px;display:none;}
+
+/* APP */
+#app-screen{display:flex;height:100vh;overflow:hidden;}
+.sidebar{width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-logo{padding:28px 24px 24px;border-bottom:1px solid var(--border);}
+.logo-text{font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent);letter-spacing:-1px;}
+.logo-sub{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+.sidebar-nav{padding:20px 12px;flex:1;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:500;color:var(--text2);transition:all .15s;margin-bottom:2px;}
+.nav-item:hover{background:var(--bg3);color:var(--text);}
+.nav-item.active{background:rgba(0,212,255,0.08);color:var(--accent);}
+.sidebar-bottom{padding:16px 12px;border-top:1px solid var(--border);}
+.logout-btn{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;font-size:0.8rem;color:var(--text3);transition:color .15s;background:none;border:none;font-family:var(--font-body);width:100%;}
+.logout-btn:hover{color:var(--red);}
+.main{flex:1;overflow-y:auto;padding:32px;}
+.page{display:none;}.page.active{display:block;}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;}
+.page-title{font-family:var(--font-display);font-size:1.8rem;font-weight:700;letter-spacing:-0.5px;}
+.page-sub{font-size:0.78rem;color:var(--text3);font-family:var(--font-mono);margin-top:4px;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-family:var(--font-body);font-weight:600;font-size:0.82rem;cursor:pointer;border:1px solid transparent;border-radius:6px;transition:all .15s;text-decoration:none;}
+.btn-primary{background:var(--accent);color:#000;}.btn-primary:hover{background:var(--accent2);}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--text2);}.btn-ghost:hover{border-color:var(--text2);color:var(--text);}
+.btn-danger{background:transparent;border-color:var(--red2);color:var(--red);}.btn-danger:hover{background:rgba(255,77,109,0.1);}
+.btn-sm{padding:6px 12px;font-size:0.78rem;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px;position:relative;overflow:hidden;border-radius:8px;}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
+.stat-card.c-blue::after{background:var(--accent);}.stat-card.c-green::after{background:var(--green);}
+.stat-card.c-orange::after{background:var(--orange);}.stat-card.c-purple::after{background:var(--purple);}
+.stat-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.stat-value{font-family:var(--font-display);font-size:1.9rem;font-weight:700;line-height:1;}
+.stat-card.c-blue .stat-value{color:var(--accent);}.stat-card.c-green .stat-value{color:var(--green);}
+.stat-card.c-orange .stat-value{color:var(--orange);}.stat-card.c-purple .stat-value{color:var(--purple);}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+.prod-stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;}
+.prod-stat-name{font-size:0.78rem;color:var(--text2);margin-bottom:4px;}
+.prod-stat-rev{font-family:var(--font-mono);font-size:0.9rem;color:var(--green);font-weight:500;}
+.prod-stat-count{font-family:var(--font-mono);font-size:1.2rem;font-weight:500;color:var(--text3);}
+
+/* FILTER */
+.filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
+.filter-group{display:flex;flex-direction:column;gap:5px;}
+.filter-label{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;}
+.filter-input,.filter-select{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:0.82rem;padding:7px 12px;border-radius:5px;outline:none;transition:border-color .15s;min-width:130px;}
+.filter-input:focus,.filter-select:focus{border-color:var(--accent);}
+.filter-select option{background:var(--bg3);}
+
+/* TABLE */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--bg3);border-bottom:1px solid var(--border);}
+th{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:400;}
+tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--bg3);}
+td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:var(--font-mono);font-size:0.65rem;font-weight:500;margin:1px 2px 1px 0;}
+.badge-waiting{background:rgba(255,170,0,0.12);color:var(--orange);border:1px solid rgba(255,170,0,0.3);}
+.badge-done{background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.25);}
+.badge-rejected{background:rgba(255,77,109,0.1);color:var(--red);border:1px solid rgba(255,77,109,0.25);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:5000;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.modal-header{padding:24px 28px 0;display:flex;justify-content:space-between;align-items:center;}
+.modal-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;}
+.modal-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1.2rem;padding:4px;transition:color .15s;}
+.modal-close:hover{color:var(--text);}
+.modal-body{padding:24px 28px;}
+.modal-footer{padding:16px 28px 24px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--border);}
+
+/* FORM */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-row.single{grid-template-columns:1fr;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:0.85rem;padding:9px 12px;border-radius:6px;outline:none;transition:border-color .15s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3);}
+.form-select option{background:var(--bg3);}
+.form-textarea{resize:vertical;min-height:70px;}
+.products-section{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px;}
+.products-title{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;}
+.product-item{display:grid;grid-template-columns:1fr 140px 130px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.product-item:last-child{border-bottom:none;}
+.product-item-name{font-size:0.82rem;color:var(--text);}
+.product-item-rev{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);}
+
+/* DETAIL */
+.detail-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
+.detail-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.detail-card-title{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.detail-row:last-child{border-bottom:none;}
+.detail-key{font-size:0.8rem;color:var(--text2);}
+.detail-val{font-size:0.85rem;color:var(--text);font-weight:500;}
+.fin-row{display:flex;justify-content:space-between;padding:10px 0;font-size:0.85rem;border-bottom:1px solid var(--border);}
+.fin-row:last-child{border-bottom:none;}
+.fin-key{color:var(--text2);}
+.fin-val-pos{font-family:var(--font-mono);color:var(--green);font-weight:500;}
+.fin-val-neg{font-family:var(--font-mono);color:var(--red);font-weight:500;}
+.fin-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0 0;margin-top:8px;border-top:2px solid var(--border2);}
+.fin-total-key{font-weight:700;font-size:0.9rem;}
+.fin-total-val{font-family:var(--font-display);font-size:1.5rem;font-weight:700;}
+.prod-detail-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.prod-detail-item:last-child{border-bottom:none;}
+.prod-detail-left{display:flex;align-items:center;gap:10px;}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-waiting{background:var(--orange);}.dot-done{background:var(--green);box-shadow:0 0 6px rgba(0,229,160,0.4);}.dot-rejected{background:var(--red);}
+.prod-detail-name{font-size:0.83rem;color:var(--text);}
+.prod-detail-date{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);}
+.empty{text-align:center;padding:60px 20px;color:var(--text3);}
+.empty-icon{font-size:2.5rem;margin-bottom:12px;opacity:0.4;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--bg3);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:6px;font-size:0.82rem;font-family:var(--font-mono);transform:translateY(100px);opacity:0;transition:all .3s;z-index:9999;}
+.toast.show{transform:translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN (fixed overlay, always rendered, hidden after auth) -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">RKO</div>
+    <div class="login-sub">Partner Dashboard</div>
+    <input class="login-input" type="password" id="pwd-input" placeholder="Введи пароль">
+    <button class="login-btn" onclick="doLogin()">ВОЙТИ</button>
+    <div class="login-error" id="login-error">Неверный пароль</div>
+  </div>
+</div>
+
+<!-- APP (hidden until login) -->
+<div id="app-screen" style="display:none;">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">RKO</div>
+      <div class="logo-sub">Dashboard</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Дашборд</span>
+      </div>
+      <div class="nav-item" onclick="showPage('leads')" id="nav-leads">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Лиды</span>
+      </div>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Выйти</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div><div class="page-title">Дашборд</div><div class="page-sub" id="dash-date"></div></div>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Новый лид</button>
+      </div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="product-grid" id="product-grid"></div>
+      <div class="page-header" style="margin-bottom:16px;">
+        <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;">Последние лиды</div>
+        <button class="btn btn-ghost btn-sm" onclick="showPage('leads')">Все лиды →</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Имя</th><th>Телефон</th><th>Пригласил</th><th>Продукты</th><th>Выручка</th><th>Прибыль</th><th>Дата</th></tr></thead>
+        <tbody id="dash-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="page" id="page-leads">
+      <div class="page-header">
+        <div><div class="page-title">Лиды</div><div class="page-sub" id="leads-sub"></div></div>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Новый лид</button>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-group"><div class="filter-label">Поиск</div><input type="text" class="filter-input" id="f-search" placeholder="Имя, телефон..." oninput="renderLeads()"></div>
+        <div class="filter-group"><div class="filter-label">Продукт</div>
+          <select class="filter-select" id="f-product" onchange="renderLeads()">
+            <option value="">Все</option>
+            <option value="alfa">РКО Альфа</option><option value="vtb">ВТБ</option>
+            <option value="sber">Сбер</option><option value="ozon">Озон</option>
+            <option value="tinkoff_rko">ТКФ РКО</option><option value="tinkoff_card">ТКФ Карта</option>
+            <option value="telephony">Телефония</option>
+          </select>
+        </div>
+        <div class="filter-group"><div class="filter-label">Статус</div>
+          <select class="filter-select" id="f-status" onchange="renderLeads()">
+            <option value="">Все</option><option value="waiting">⏳ Ожидает</option>
+            <option value="done">✅ Оформлен</option><option value="rejected">❌ Отказ</option>
+          </select>
+        </div>
+        <div class="filter-group"><div class="filter-label">От</div><input type="date" class="filter-input" id="f-from" style="min-width:130px" onchange="renderLeads()"></div>
+        <div class="filter-group"><div class="filter-label">До</div><input type="date" class="filter-input" id="f-to" style="min-width:130px" onchange="renderLeads()"></div>
+        <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Сбросить</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Имя</th><th>Телефон</th><th>Пригласил</th><th>Продукты</th><th>Выручка</th><th>Прибыль</th><th>Дата</th></tr></thead>
+        <tbody id="leads-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="page" id="page-detail">
+      <div class="page-header">
+        <div><div class="page-title" id="detail-name"></div><div class="page-sub" id="detail-date"></div></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" onclick="openEditModal(currentId)">✏ Редактировать</button>
+          <button class="btn btn-ghost" onclick="showPage('leads')">← Назад</button>
+        </div>
+      </div>
+      <div class="detail-grid">
+        <div>
+          <div class="detail-card" id="d-info"></div>
+          <div class="detail-card" id="d-prods"></div>
+        </div>
+        <div>
+          <div class="detail-card" id="d-fin"></div>
+          <div style="text-align:right;margin-top:12px;">
+            <button class="btn btn-danger btn-sm" onclick="deleteLead(currentId)">🗑 Удалить лида</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Новый лид</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-id">
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Имя *</div><input type="text" class="form-input" id="fi-name" placeholder="Иван Иванов"></div>
+        <div class="form-group"><div class="form-label">Телефон</div><input type="text" class="form-input" id="fi-phone" placeholder="+7 999 000-00-00"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Кто пригласил</div><input type="text" class="form-input" id="fi-invited" placeholder="Имя партнёра"></div>
+        <div class="form-group"><div class="form-label">Лидовод (-3000 ₽)</div>
+          <select class="form-select" id="fi-referrer"><option value="0">Нет</option><option value="1">Да</option></select>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group"><div class="form-label">Дата добавления</div><input type="date" class="form-input" id="fi-date"></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group"><div class="form-label">Заметки</div><textarea class="form-textarea" id="fi-notes" placeholder="Любые пометки..."></textarea></div>
+      </div>
+      <div class="products-section">
+        <div class="products-title">Продукты</div>
+        <div id="prods-form"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+      <button class="btn btn-primary" onclick="saveLead()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PWD = '1488';
+const PRODS = [
+  {key:'alfa',         name:'РегБиз + РКО Альфа', short:'Альфа', rev:9600,  cd:1200},
+  {key:'vtb',          name:'РКО ВТБ',             short:'ВТБ',   rev:5000,  cd:0},
+  {key:'sber',         name:'РКО Сбер',            short:'Сбер',  rev:4000,  cd:1000},
+  {key:'ozon',         name:'РКО Озон',            short:'Озон',  rev:5000,  cd:1000},
+  {key:'tinkoff_rko',  name:'РКО Тинькофф',       short:'ТКФ',   rev:4000,  cd:0},
+  {key:'tinkoff_card', name:'Кредитка Тинькофф',  short:'ТКФ К', rev:4800,  cd:0},
+  {key:'telephony',    name:'Телефония',           short:'Тел',   rev:5000,  cd:1000},
+];
+const DOPL=3400, LIDOV=3000;
+let currentId=null;
+
+const getLeads=()=>JSON.parse(localStorage.getItem('rko_leads')||'[]');
+const saveLeads=d=>localStorage.setItem('rko_leads',JSON.stringify(d));
+const genId=()=>Date.now()+'-'+Math.random().toString(36).substr(2,5);
+const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+
+function calcFin(lead){
+  let rev=0,cd=0,hasDone=false;
+  (lead.products||[]).forEach(p=>{
+    if(p.status==='done'){
+      const pr=PRODS.find(x=>x.key===p.key);
+      if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}
+    }
+  });
+  const dopl=hasDone?DOPL:0;
+  const lid=lead.has_referrer?LIDOV:0;
+  return{rev,cd,dopl,lid,net:rev-cd-dopl-lid};
+}
+
+// AUTH
+function doLogin(){
+  const v=document.getElementById('pwd-input').value;
+  if(v===PWD){
+    sessionStorage.setItem('rko_ok','1');
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app-screen').style.display='flex';
+    initApp();
+  } else {
+    document.getElementById('login-error').style.display='block';
+    document.getElementById('pwd-input').value='';
+    document.getElementById('pwd-input').focus();
+  }
+}
+function doLogout(){
+  sessionStorage.removeItem('rko_ok');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('app-screen').style.display='none';
+  document.getElementById('pwd-input').value='';
+}
+
+// PAGES
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const nav=document.getElementById('nav-'+name);
+  if(nav) nav.classList.add('active');
+  if(name==='dashboard') renderDashboard();
+  if(name==='leads') renderLeads();
+}
+
+function initApp(){
+  document.getElementById('dash-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  renderDashboard();
+}
+
+// RENDER DASHBOARD
+function renderDashboard(){
+  const leads=getLeads();
+  let totalRev=0,totalNet=0,totalDone=0;
+  leads.forEach(l=>{const f=calcFin(l);totalRev+=f.rev;totalNet+=f.net;(l.products||[]).forEach(p=>{if(p.status==='done')totalDone++;});});
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="stat-card c-blue"><div class="stat-label">Всего лидов</div><div class="stat-value">${leads.length}</div></div>
+    <div class="stat-card c-green"><div class="stat-label">Общая выручка</div><div class="stat-value">${fmt(totalRev)}</div></div>
+    <div class="stat-card c-orange"><div class="stat-label">Чистая прибыль</div><div class="stat-value">${fmt(totalNet)}</div></div>
+    <div class="stat-card c-purple"><div class="stat-label">Оформлено продуктов</div><div class="stat-value">${totalDone}</div></div>
+  `;
+  document.getElementById('product-grid').innerHTML=PRODS.map(p=>{
+    let cnt=0,r=0;
+    leads.forEach(l=>(l.products||[]).forEach(lp=>{if(lp.key===p.key&&lp.status==='done'){cnt++;r+=p.rev;}}));
+    return`<div class="prod-stat"><div><div class="prod-stat-name">${p.name}</div><div class="prod-stat-rev">${fmt(r)}</div></div><div class="prod-stat-count">${cnt}</div></div>`;
+  }).join('');
+  const recent=[...leads].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
+  document.getElementById('dash-tbody').innerHTML=leadsRows(recent);
+}
+
+function renderLeads(){
+  const q=(document.getElementById('f-search')?.value||'').toLowerCase();
+  const pf=document.getElementById('f-product')?.value||'';
+  const sf=document.getElementById('f-status')?.value||'';
+  const df=document.getElementById('f-from')?.value||'';
+  const dt=document.getElementById('f-to')?.value||'';
+  let leads=getLeads().sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  if(q) leads=leads.filter(l=>l.name.toLowerCase().includes(q)||(l.phone||'').includes(q)||(l.invited_by||'').toLowerCase().includes(q));
+  if(pf) leads=leads.filter(l=>(l.products||[]).some(p=>p.key===pf));
+  if(sf) leads=leads.filter(l=>(l.products||[]).some(p=>p.status===sf));
+  if(df) leads=leads.filter(l=>l.created_at>=df);
+  if(dt) leads=leads.filter(l=>l.created_at<=dt+'T23:59:59');
+  document.getElementById('leads-sub').textContent=leads.length+' лидов';
+  document.getElementById('leads-tbody').innerHTML=leadsRows(leads);
+}
+
+function leadsRows(leads){
+  if(!leads.length) return`<tr><td colspan="7"><div class="empty"><div class="empty-icon">◈</div><div>Лидов нет</div></div></td></tr>`;
+  return leads.map(l=>{
+    const f=calcFin(l);
+    const badges=(l.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{const pr=PRODS.find(x=>x.key===p.key);return`<span class="badge badge-${p.status}">${pr?pr.short:p.key}</span>`;}).join('');
+    const nc=f.net>=0?'var(--green)':'var(--red)';
+    const dt=l.created_at?new Date(l.created_at).toLocaleDateString('ru-RU'):'—';
+    return`<tr onclick="openDetail('${l.id}')">
+      <td style="font-weight:600">${l.name}</td>
+      <td style="color:var(--text2);font-size:.8rem">${l.phone||'—'}</td>
+      <td style="color:var(--text2);font-size:.8rem">${l.invited_by||'—'}</td>
+      <td>${badges||'<span style="color:var(--text3);font-size:.75rem">нет</span>'}</td>
+      <td style="font-family:var(--font-mono);color:var(--green)">${f.rev>0?'+'+fmt(f.rev):'—'}</td>
+      <td style="font-family:var(--font-mono);color:${nc};font-weight:600">${f.net!==0?(f.net>0?'+':'')+fmt(f.net):'—'}</td>
+      <td style="color:var(--text2);font-size:.82rem">${dt}</td>
+    </tr>`;
+  }).join('');
+}
+
+function openDetail(id){
+  currentId=id;
+  const lead=getLeads().find(l=>l.id===id);
+  if(!lead) return;
+  const f=calcFin(lead);
+  document.getElementById('detail-name').textContent=lead.name;
+  document.getElementById('detail-date').textContent=lead.created_at?new Date(lead.created_at).toLocaleDateString('ru-RU'):'';
+  document.getElementById('d-info').innerHTML=`
+    <div class="detail-card-title">Информация</div>
+    <div class="detail-row"><div class="detail-key">📱 Телефон</div><div class="detail-val">${lead.phone||'—'}</div></div>
+    <div class="detail-row"><div class="detail-key">👤 Пригласил</div><div class="detail-val">${lead.invited_by||'—'}</div></div>
+    <div class="detail-row"><div class="detail-key">🤝 Лидовод</div><div class="detail-val">${lead.has_referrer?'Да (-3 000 ₽)':'Нет'}</div></div>
+    <div class="detail-row"><div class="detail-key">📅 Добавлен</div><div class="detail-val">${lead.created_at?new Date(lead.created_at).toLocaleDateString('ru-RU'):'—'}</div></div>
+    ${lead.notes?`<div class="detail-row"><div class="detail-key">📝 Заметки</div><div class="detail-val" style="font-size:.8rem;color:var(--text2)">${lead.notes}</div></div>`:''}
+  `;
+  const prodsHtml=(lead.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{
+    const pr=PRODS.find(x=>x.key===p.key);if(!pr) return'';
+    return`<div class="prod-detail-item">
+      <div class="prod-detail-left">
+        <div class="status-dot dot-${p.status}"></div>
+        <div><div class="prod-detail-name">${pr.name}</div>${p.date?`<div class="prod-detail-date">${p.date}</div>`:''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        ${p.status==='done'?`<span style="font-family:var(--font-mono);color:var(--green);font-size:.8rem">+${fmt(pr.rev)}</span>`:''}
+        <span class="badge badge-${p.status}">${p.status==='waiting'?'⏳ Ожидает':p.status==='done'?'✅ Оформлен':'❌ Отказ'}</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('d-prods').innerHTML=`<div class="detail-card-title">Продукты</div>${prodsHtml||'<div style="color:var(--text3);font-size:.83rem;padding:12px 0">Продукты не добавлены</div>'}`;
+  const nc=f.net>=0?'var(--green)':'var(--red)';
+  document.getElementById('d-fin').innerHTML=`
+    <div class="detail-card-title">Финансы</div>
+    <div class="fin-row"><div class="fin-key">Выручка</div><div class="fin-val-pos">+${fmt(f.rev)}</div></div>
+    <div class="fin-row"><div class="fin-key">Затраты ЦД</div><div class="fin-val-neg">-${fmt(f.cd)}</div></div>
+    <div class="fin-row"><div class="fin-key">Доплата лиду</div><div class="fin-val-neg">-${fmt(f.dopl)}</div></div>
+    <div class="fin-row"><div class="fin-key">Лидовод</div><div class="fin-val-neg">-${fmt(f.lid)}</div></div>
+    <div class="fin-total"><div class="fin-total-key">Чистая прибыль</div><div class="fin-total-val" style="color:${nc}">${f.net>=0?'+':''}${fmt(f.net)}</div></div>
+  `;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-detail').classList.add('active');
+}
+
+// MODAL
+function prodsForm(existing){
+  return PRODS.map(p=>{
+    const ex=(existing||[]).find(x=>x.key===p.key)||{};
+    return`<div class="product-item">
+      <div><div class="product-item-name">${p.name}</div><div class="product-item-rev">${fmt(p.rev)} · ЦД: ${p.cd>0?fmt(p.cd):'—'}</div></div>
+      <select class="form-select" id="ps-${p.key}" style="font-size:.8rem;padding:6px 8px">
+        <option value="none" ${!ex.status||ex.status==='none'?'selected':''}>— Не добавлен</option>
+        <option value="waiting" ${ex.status==='waiting'?'selected':''}>⏳ Ожидает</option>
+        <option value="done" ${ex.status==='done'?'selected':''}>✅ Оформлен</option>
+        <option value="rejected" ${ex.status==='rejected'?'selected':''}>❌ Отказ</option>
+      </select>
+      <input type="date" class="form-input" id="pd-${p.key}" value="${ex.date||''}" style="font-size:.78rem;padding:6px 10px">
+    </div>`;
+  }).join('');
+}
+
+function openAddModal(){
+  document.getElementById('modal-title').textContent='Новый лид';
+  document.getElementById('edit-id').value='';
+  ['fi-name','fi-phone','fi-invited','fi-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fi-referrer').value='0';
+  document.getElementById('fi-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('prods-form').innerHTML=prodsForm([]);
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('fi-name').focus(),100);
+}
+
+function openEditModal(id){
+  const lead=getLeads().find(l=>l.id===id);if(!lead) return;
+  document.getElementById('modal-title').textContent='Редактировать лид';
+  document.getElementById('edit-id').value=id;
+  document.getElementById('fi-name').value=lead.name;
+  document.getElementById('fi-phone').value=lead.phone||'';
+  document.getElementById('fi-invited').value=lead.invited_by||'';
+  document.getElementById('fi-referrer').value=lead.has_referrer?'1':'0';
+  document.getElementById('fi-date').value=lead.created_at?lead.created_at.split('T')[0]:'';
+  document.getElementById('fi-notes').value=lead.notes||'';
+  document.getElementById('prods-form').innerHTML=prodsForm(lead.products||[]);
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+
+function saveLead(){
+  const name=document.getElementById('fi-name').value.trim();
+  if(!name){alert('Введи имя!');return;}
+  const products=PRODS.map(p=>({key:p.key,status:document.getElementById('ps-'+p.key)?.value||'none',date:document.getElementById('pd-'+p.key)?.value||''})).filter(p=>p.status!=='none');
+  const editId=document.getElementById('edit-id').value;
+  const dateVal=document.getElementById('fi-date').value;
+  const leads=getLeads();
+  if(editId){
+    const idx=leads.findIndex(l=>l.id===editId);
+    if(idx!==-1) leads[idx]={...leads[idx],name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':leads[idx].created_at};
+    saveLeads(leads);closeModal();showToast('Лид обновлён ✓');openDetail(editId);
+  } else {
+    leads.push({id:genId(),name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()});
+    saveLeads(leads);closeModal();showToast('Лид добавлен ✓');renderDashboard();
+  }
+}
+
+function deleteLead(id){
+  if(!confirm('Удалить лида? Это нельзя отменить.')) return;
+  saveLeads(getLeads().filter(l=>l.id!==id));
+  showToast('Лид удалён');showPage('leads');
+}
+
+function clearFilters(){
+  ['f-search','f-from','f-to'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['f-product','f-status'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderLeads();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// INIT — block app if not authed, use sessionStorage (clears on tab close)
+window.addEventListener('DOMContentLoaded',()=>{
+  if(sessionStorage.getItem('rko_ok')==='1'){
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app-screen').style.display='flex';
+    initApp();
+  }
+  document.getElementById('pwd-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+});
+</script>
+</body>
+</html>
