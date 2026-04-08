@@ -7,13 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#080b0f;--bg2:#0d1117;--bg3:#131920;--border:#1e2d3d;--border2:#243447;
-  --text:#c9d8e8;--text2:#6b8299;--text3:#3d5269;
-  --accent:#00d4ff;--accent2:#0099bb;--green:#00e5a0;--green2:#00b87d;
-  --red:#ff4d6d;--red2:#cc1f3e;--orange:#ffaa00;--purple:#9b6dff;
-  --font-display:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-body:'Manrope',sans-serif;
-}
+:root{--bg:#080b0f;--bg2:#0d1117;--bg3:#131920;--border:#1e2d3d;--border2:#243447;--text:#c9d8e8;--text2:#6b8299;--text3:#3d5269;--accent:#00d4ff;--accent2:#0099bb;--green:#00e5a0;--green2:#00b87d;--red:#ff4d6d;--red2:#cc1f3e;--orange:#ffaa00;--purple:#9b6dff;--font-display:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-body:'Manrope',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
@@ -276,7 +270,8 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 
 <script>
 const PWD = '200718';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwm0ZzmrPwY9QuQ80SHUxAQ1oWoYZdPeJXNdyroQmmCHFj2Jl3-6IdTgEY0CPDcLN0Ffg/exec';
+const FB = 'https://rko-dashboard-default-rtdb.europe-west1.firebasedatabase.app';
+
 const PRODS = [
   {key:'alfa',         name:'РегБиз + РКО Альфа', short:'Альфа', rev:9600,  cd:1200},
   {key:'vtb',          name:'РКО ВТБ',             short:'ВТБ',   rev:5000,  cd:0},
@@ -286,18 +281,42 @@ const PRODS = [
   {key:'tinkoff_card', name:'Кредитка Тинькофф',  short:'ТКФ К', rev:4800,  cd:0},
   {key:'telephony',    name:'Телефония',           short:'Тел',   rev:5000,  cd:1000},
 ];
-const DOPL=3400,LIDOV=3000;
-let currentId=null,leadsCache=[];
+const DOPL=3400, LIDOV=3000;
+let currentId=null, leadsCache=[];
 
 const genId=()=>Date.now()+'-'+Math.random().toString(36).substr(2,5);
 const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+
 function calcFin(lead){
   let rev=0,cd=0,hasDone=false;
-  (lead.products||[]).forEach(p=>{if(p.status==='done'){const pr=PRODS.find(x=>x.key===p.key);if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}}});
-  const dopl=hasDone?DOPL:0,lid=lead.has_referrer?LIDOV:0;
+  (lead.products||[]).forEach(p=>{
+    if(p.status==='done'){const pr=PRODS.find(x=>x.key===p.key);if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}}
+  });
+  const dopl=hasDone?DOPL:0, lid=lead.has_referrer?LIDOV:0;
   return{rev,cd,dopl,lid,net:rev-cd-dopl-lid};
 }
 
+// ── Firebase API ─────────────────────────────────────────────
+async function fbGet(){
+  const r=await fetch(FB+'/leads.json');
+  const d=await r.json();
+  if(!d) return [];
+  return Object.entries(d).map(([id,val])=>({...val,id}));
+}
+
+async function fbSet(lead){
+  await fetch(FB+'/leads/'+lead.id+'.json',{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(lead)
+  });
+}
+
+async function fbDelete(id){
+  await fetch(FB+'/leads/'+id+'.json',{method:'DELETE'});
+}
+
+// ── UI helpers ───────────────────────────────────────────────
 function setSyncing(yes){
   const dot=document.getElementById('sync-dot'),txt=document.getElementById('sync-text');
   if(yes){dot.classList.add('syncing');txt.textContent='Синхронизация...';}
@@ -310,25 +329,7 @@ function showToast(msg,err=false){
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-async function apiGetLeads(){
-  const r=await fetch(SCRIPT_URL+'?action=getLeads',{cache:'no-store'});
-  const d=await r.json();
-  return d.leads||[];
-}
-
-async function apiSaveLeads(leads){
-  setSyncing(true);
-  try{
-    const encoded=encodeURIComponent(JSON.stringify(leads));
-    await fetch(SCRIPT_URL+'?action=saveLeads&data='+encoded,{mode:'no-cors'});
-    setSyncing(false);
-    showToast('Сохранено ✓');
-  }catch(e){
-    setSyncing(false);
-    showToast('Ошибка сохранения!',true);
-  }
-}
-
+// ── Auth ─────────────────────────────────────────────────────
 function doLogin(){
   const v=document.getElementById('pwd-input').value;
   if(v===PWD){
@@ -349,6 +350,7 @@ function doLogout(){
   document.getElementById('pwd-input').value='';
 }
 
+// ── Pages ────────────────────────────────────────────────────
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -360,11 +362,18 @@ function showPage(name){
 
 async function initApp(){
   document.getElementById('dash-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  showLoading('Загружаем данные из Google Sheets...');
-  try{leadsCache=await apiGetLeads();hideLoading();renderDashboard();}
-  catch(e){hideLoading();showToast('Не удалось загрузить данные',true);}
+  showLoading('Загружаем данные...');
+  try{
+    leadsCache=await fbGet();
+    hideLoading();
+    renderDashboard();
+  }catch(e){
+    hideLoading();
+    showToast('Ошибка загрузки данных',true);
+  }
 }
 
+// ── Render ───────────────────────────────────────────────────
 function renderDashboard(){
   const leads=leadsCache;
   let totalRev=0,totalNet=0,totalDone=0;
@@ -448,6 +457,7 @@ function openDetail(id){
   document.getElementById('page-detail').classList.add('active');
 }
 
+// ── Modal ────────────────────────────────────────────────────
 function prodsForm(existing){
   return PRODS.map(p=>{
     const ex=(existing||[]).find(x=>x.key===p.key)||{};
@@ -496,22 +506,32 @@ async function saveLead(){
   const editId=document.getElementById('edit-id').value;
   const dateVal=document.getElementById('fi-date').value;
   const obj={name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()};
-  if(editId){
-    const idx=leadsCache.findIndex(l=>l.id===editId);
-    if(idx!==-1)leadsCache[idx]={...leadsCache[idx],...obj};
-    closeModal();renderDashboard();openDetail(editId);
-  }else{
-    leadsCache.push({id:genId(),...obj});
-    closeModal();renderDashboard();
-  }
-  await apiSaveLeads(leadsCache);
+
+  setSyncing(true);
+  try{
+    if(editId){
+      obj.id=editId;
+      await fbSet(obj);
+      const idx=leadsCache.findIndex(l=>l.id===editId);
+      if(idx!==-1)leadsCache[idx]=obj;
+      closeModal();setSyncing(false);showToast('Сохранено ✓');openDetail(editId);
+    }else{
+      obj.id=genId();
+      await fbSet(obj);
+      leadsCache.push(obj);
+      closeModal();setSyncing(false);showToast('Лид добавлен ✓');renderDashboard();
+    }
+  }catch(e){setSyncing(false);showToast('Ошибка сохранения!',true);}
 }
 
 async function deleteLead(id){
   if(!confirm('Удалить лида? Это нельзя отменить.'))return;
-  leadsCache=leadsCache.filter(l=>l.id!==id);
-  await apiSaveLeads(leadsCache);
-  showToast('Лид удалён');showPage('leads');
+  setSyncing(true);
+  try{
+    await fbDelete(id);
+    leadsCache=leadsCache.filter(l=>l.id!==id);
+    setSyncing(false);showToast('Лид удалён');showPage('leads');
+  }catch(e){setSyncing(false);showToast('Ошибка удаления!',true);}
 }
 
 function clearFilters(){
