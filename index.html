@@ -18,7 +18,6 @@
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--border2);}
-
 #login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,255,0.07) 0%,var(--bg) 60%);}
 #login-screen.hidden{display:none;}
 .login-box{width:360px;border:1px solid var(--border);background:var(--bg2);padding:48px 40px;position:relative;}
@@ -31,7 +30,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .login-btn{width:100%;background:var(--accent);color:#000;border:none;font-family:var(--font-display);font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;padding:14px;cursor:pointer;transition:background .2s;}
 .login-btn:hover{background:var(--accent2);}
 .login-error{color:var(--red);font-size:0.8rem;font-family:var(--font-mono);margin-top:12px;display:none;}
-
 #app-screen{display:flex;height:100vh;overflow:hidden;}
 .sidebar{width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
 .sidebar-logo{padding:28px 24px 24px;border-bottom:1px solid var(--border);}
@@ -49,13 +47,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;}
 .page-title{font-family:var(--font-display);font-size:1.8rem;font-weight:700;letter-spacing:-0.5px;}
 .page-sub{font-size:0.78rem;color:var(--text3);font-family:var(--font-mono);margin-top:4px;}
-
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-family:var(--font-body);font-weight:600;font-size:0.82rem;cursor:pointer;border:1px solid transparent;border-radius:6px;transition:all .15s;}
 .btn-primary{background:var(--accent);color:#000;}.btn-primary:hover{background:var(--accent2);}
 .btn-ghost{background:transparent;border-color:var(--border2);color:var(--text2);}.btn-ghost:hover{border-color:var(--text2);color:var(--text);}
 .btn-danger{background:transparent;border-color:var(--red2);color:var(--red);}.btn-danger:hover{background:rgba(255,77,109,0.1);}
 .btn-sm{padding:6px 12px;font-size:0.78rem;}
-
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
 .stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px;position:relative;overflow:hidden;border-radius:8px;}
 .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
@@ -65,20 +61,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 .stat-value{font-family:var(--font-display);font-size:1.9rem;font-weight:700;line-height:1;}
 .stat-card.c-blue .stat-value{color:var(--accent);}.stat-card.c-green .stat-value{color:var(--green);}
 .stat-card.c-orange .stat-value{color:var(--orange);}.stat-card.c-purple .stat-value{color:var(--purple);}
-
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
 .prod-stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;}
 .prod-stat-name{font-size:0.78rem;color:var(--text2);margin-bottom:4px;}
 .prod-stat-rev{font-family:var(--font-mono);font-size:0.9rem;color:var(--green);font-weight:500;}
 .prod-stat-count{font-family:var(--font-mono);font-size:1.2rem;font-weight:500;color:var(--text3);}
-
 .filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
 .filter-group{display:flex;flex-direction:column;gap:5px;}
 .filter-label{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;}
 .filter-input,.filter-select{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:0.82rem;padding:7px 12px;border-radius:5px;outline:none;transition:border-color .15s;min-width:130px;}
 .filter-input:focus,.filter-select:focus{border-color:var(--accent);}
 .filter-select option{background:var(--bg3);}
-
 .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
 table{width:100%;border-collapse:collapse;}
 thead tr{background:var(--bg3);border-bottom:1px solid var(--border);}
@@ -87,12 +80,10 @@ tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:backgro
 tbody tr:last-child{border-bottom:none;}
 tbody tr:hover{background:var(--bg3);}
 td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
-
 .badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:var(--font-mono);font-size:0.65rem;font-weight:500;margin:1px 2px 1px 0;}
 .badge-waiting{background:rgba(255,170,0,0.12);color:var(--orange);border:1px solid rgba(255,170,0,0.3);}
 .badge-done{background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.25);}
 .badge-rejected{background:rgba(255,77,109,0.1);color:var(--red);border:1px solid rgba(255,77,109,0.25);}
-
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:5000;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;}
@@ -103,7 +94,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .modal-close:hover{color:var(--text);}
 .modal-body{padding:24px 28px;}
 .modal-footer{padding:16px 28px 24px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--border);}
-
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
 .form-row.single{grid-template-columns:1fr;}
 .form-group{display:flex;flex-direction:column;gap:6px;}
@@ -119,7 +109,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .product-item:last-child{border-bottom:none;}
 .product-item-name{font-size:0.82rem;color:var(--text);}
 .product-item-rev{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);}
-
 .detail-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
 .detail-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
 .detail-card-title{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
@@ -144,35 +133,24 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 .prod-detail-date{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);}
 .empty{text-align:center;padding:60px 20px;color:var(--text3);}
 .empty-icon{font-size:2.5rem;margin-bottom:12px;opacity:0.4;}
-
-/* LOADING OVERLAY */
-#loading-overlay{position:fixed;inset:0;background:rgba(8,11,15,0.85);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#loading-overlay{position:fixed;inset:0;background:rgba(8,11,15,0.9);z-index:8000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 #loading-overlay.show{display:flex;}
 .spinner{width:32px;height:32px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-family:var(--font-mono);font-size:0.75rem;color:var(--text3);letter-spacing:1px;}
-
 .toast{position:fixed;bottom:24px;right:24px;background:var(--bg3);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:6px;font-size:0.82rem;font-family:var(--font-mono);transform:translateY(100px);opacity:0;transition:all .3s;z-index:9999;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.error{border-color:var(--red);color:var(--red);}
-
-/* SYNC indicator */
-.sync-status{font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);display:flex;align-items:center;gap:6px;margin-top:6px;}
+.sync-status{font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);display:flex;align-items:center;gap:6px;margin-top:4px;}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
 .sync-dot.syncing{background:var(--orange);animation:pulse 1s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 </style>
 </head>
 <body>
-
 <div class="toast" id="toast"></div>
+<div id="loading-overlay"><div class="spinner"></div><div class="loading-text" id="loading-text">Загрузка...</div></div>
 
-<div id="loading-overlay">
-  <div class="spinner"></div>
-  <div class="loading-text" id="loading-text">Загрузка...</div>
-</div>
-
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">RKO</div>
@@ -183,13 +161,9 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
   </div>
 </div>
 
-<!-- APP -->
 <div id="app-screen" style="display:none;">
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-text">RKO</div>
-      <div class="logo-sub">Dashboard</div>
-    </div>
+    <div class="sidebar-logo"><div class="logo-text">RKO</div><div class="logo-sub">Dashboard</div></div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -201,17 +175,13 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
       </div>
     </nav>
     <div class="sidebar-bottom">
-      <div class="sync-status" id="sync-status">
-        <div class="sync-dot" id="sync-dot"></div>
-        <span id="sync-text">Синхронизировано</span>
-      </div>
+      <div class="sync-status"><div class="sync-dot" id="sync-dot"></div><span id="sync-text">Синхронизировано</span></div>
       <button class="logout-btn" onclick="doLogout()" style="margin-top:8px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span>Выйти</span>
       </button>
     </div>
   </aside>
-
   <main class="main">
     <div class="page active" id="page-dashboard">
       <div class="page-header">
@@ -229,7 +199,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
         <tbody id="dash-tbody"></tbody>
       </table></div>
     </div>
-
     <div class="page" id="page-leads">
       <div class="page-header">
         <div><div class="page-title">Лиды</div><div class="page-sub" id="leads-sub"></div></div>
@@ -239,8 +208,7 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
         <div class="filter-group"><div class="filter-label">Поиск</div><input type="text" class="filter-input" id="f-search" placeholder="Имя, телефон..." oninput="renderLeads()"></div>
         <div class="filter-group"><div class="filter-label">Продукт</div>
           <select class="filter-select" id="f-product" onchange="renderLeads()">
-            <option value="">Все</option>
-            <option value="alfa">РКО Альфа</option><option value="vtb">ВТБ</option>
+            <option value="">Все</option><option value="alfa">РКО Альфа</option><option value="vtb">ВТБ</option>
             <option value="sber">Сбер</option><option value="ozon">Озон</option>
             <option value="tinkoff_rko">ТКФ РКО</option><option value="tinkoff_card">ТКФ Карта</option>
             <option value="telephony">Телефония</option>
@@ -261,7 +229,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
         <tbody id="leads-tbody"></tbody>
       </table></div>
     </div>
-
     <div class="page" id="page-detail">
       <div class="page-header">
         <div><div class="page-title" id="detail-name"></div><div class="page-sub" id="detail-date"></div></div>
@@ -271,28 +238,19 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
         </div>
       </div>
       <div class="detail-grid">
-        <div>
-          <div class="detail-card" id="d-info"></div>
-          <div class="detail-card" id="d-prods"></div>
-        </div>
+        <div><div class="detail-card" id="d-info"></div><div class="detail-card" id="d-prods"></div></div>
         <div>
           <div class="detail-card" id="d-fin"></div>
-          <div style="text-align:right;margin-top:12px;">
-            <button class="btn btn-danger btn-sm" onclick="deleteLead(currentId)">🗑 Удалить лида</button>
-          </div>
+          <div style="text-align:right;margin-top:12px;"><button class="btn btn-danger btn-sm" onclick="deleteLead(currentId)">🗑 Удалить лида</button></div>
         </div>
       </div>
     </div>
   </main>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Новый лид</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title" id="modal-title">Новый лид</div><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="edit-id">
       <div class="form-row">
@@ -305,16 +263,9 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
           <select class="form-select" id="fi-referrer"><option value="0">Нет</option><option value="1">Да</option></select>
         </div>
       </div>
-      <div class="form-row single">
-        <div class="form-group"><div class="form-label">Дата добавления</div><input type="date" class="form-input" id="fi-date"></div>
-      </div>
-      <div class="form-row single">
-        <div class="form-group"><div class="form-label">Заметки</div><textarea class="form-textarea" id="fi-notes" placeholder="Любые пометки..."></textarea></div>
-      </div>
-      <div class="products-section">
-        <div class="products-title">Продукты</div>
-        <div id="prods-form"></div>
-      </div>
+      <div class="form-row single"><div class="form-group"><div class="form-label">Дата добавления</div><input type="date" class="form-input" id="fi-date"></div></div>
+      <div class="form-row single"><div class="form-group"><div class="form-label">Заметки</div><textarea class="form-textarea" id="fi-notes" placeholder="Любые пометки..."></textarea></div></div>
+      <div class="products-section"><div class="products-title">Продукты</div><div id="prods-form"></div></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
@@ -326,7 +277,6 @@ td{padding:14px 16px;font-size:0.85rem;vertical-align:middle;}
 <script>
 const PWD = '200718';
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwm0ZzmrPwY9QuQ80SHUxAQ1oWoYZdPeJXNdyroQmmCHFj2Jl3-6IdTgEY0CPDcLN0Ffg/exec';
-
 const PRODS = [
   {key:'alfa',         name:'РегБиз + РКО Альфа', short:'Альфа', rev:9600,  cd:1200},
   {key:'vtb',          name:'РКО ВТБ',             short:'ВТБ',   rev:5000,  cd:0},
@@ -336,20 +286,32 @@ const PRODS = [
   {key:'tinkoff_card', name:'Кредитка Тинькофф',  short:'ТКФ К', rev:4800,  cd:0},
   {key:'telephony',    name:'Телефония',           short:'Тел',   rev:5000,  cd:1000},
 ];
-const DOPL=3400, LIDOV=3000;
-let currentId=null;
-let leadsCache=[];
+const DOPL=3400,LIDOV=3000;
+let currentId=null,leadsCache=[];
 
-// ── API ──────────────────────────────────────────────────────
+const genId=()=>Date.now()+'-'+Math.random().toString(36).substr(2,5);
+const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+function calcFin(lead){
+  let rev=0,cd=0,hasDone=false;
+  (lead.products||[]).forEach(p=>{if(p.status==='done'){const pr=PRODS.find(x=>x.key===p.key);if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}}});
+  const dopl=hasDone?DOPL:0,lid=lead.has_referrer?LIDOV:0;
+  return{rev,cd,dopl,lid,net:rev-cd-dopl-lid};
+}
+
 function setSyncing(yes){
-  const dot=document.getElementById('sync-dot');
-  const txt=document.getElementById('sync-text');
+  const dot=document.getElementById('sync-dot'),txt=document.getElementById('sync-text');
   if(yes){dot.classList.add('syncing');txt.textContent='Синхронизация...';}
   else{dot.classList.remove('syncing');txt.textContent='Синхронизировано';}
 }
+function showLoading(t='Загрузка...'){document.getElementById('loading-text').textContent=t;document.getElementById('loading-overlay').classList.add('show');}
+function hideLoading(){document.getElementById('loading-overlay').classList.remove('show');}
+function showToast(msg,err=false){
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' error':'');
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
+}
 
 async function apiGetLeads(){
-  const r=await fetch(SCRIPT_URL+'?action=getLeads');
+  const r=await fetch(SCRIPT_URL+'?action=getLeads',{cache:'no-store'});
   const d=await r.json();
   return d.leads||[];
 }
@@ -357,33 +319,16 @@ async function apiGetLeads(){
 async function apiSaveLeads(leads){
   setSyncing(true);
   try{
-    await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'saveLeads',leads})});
+    const encoded=encodeURIComponent(JSON.stringify(leads));
+    await fetch(SCRIPT_URL+'?action=saveLeads&data='+encoded,{mode:'no-cors'});
     setSyncing(false);
+    showToast('Сохранено ✓');
   }catch(e){
     setSyncing(false);
-    showToast('Ошибка синхронизации!',true);
+    showToast('Ошибка сохранения!',true);
   }
 }
 
-function showLoading(text='Загрузка...'){
-  document.getElementById('loading-text').textContent=text;
-  document.getElementById('loading-overlay').classList.add('show');
-}
-function hideLoading(){document.getElementById('loading-overlay').classList.remove('show');}
-
-const genId=()=>Date.now()+'-'+Math.random().toString(36).substr(2,5);
-const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
-
-function calcFin(lead){
-  let rev=0,cd=0,hasDone=false;
-  (lead.products||[]).forEach(p=>{
-    if(p.status==='done'){const pr=PRODS.find(x=>x.key===p.key);if(pr){rev+=pr.rev;cd+=pr.cd;hasDone=true;}}
-  });
-  const dopl=hasDone?DOPL:0;const lid=lead.has_referrer?LIDOV:0;
-  return{rev,cd,dopl,lid,net:rev-cd-dopl-lid};
-}
-
-// AUTH
 function doLogin(){
   const v=document.getElementById('pwd-input').value;
   if(v===PWD){
@@ -391,7 +336,7 @@ function doLogin(){
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('app-screen').style.display='flex';
     initApp();
-  } else {
+  }else{
     document.getElementById('login-error').style.display='block';
     document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
@@ -404,27 +349,20 @@ function doLogout(){
   document.getElementById('pwd-input').value='';
 }
 
-// PAGES
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');
-  if(name==='dashboard') renderDashboard();
-  if(name==='leads') renderLeads();
+  if(name==='dashboard')renderDashboard();
+  if(name==='leads')renderLeads();
 }
 
 async function initApp(){
   document.getElementById('dash-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   showLoading('Загружаем данные из Google Sheets...');
-  try{
-    leadsCache=await apiGetLeads();
-    hideLoading();
-    renderDashboard();
-  }catch(e){
-    hideLoading();
-    showToast('Не удалось загрузить данные',true);
-  }
+  try{leadsCache=await apiGetLeads();hideLoading();renderDashboard();}
+  catch(e){hideLoading();showToast('Не удалось загрузить данные',true);}
 }
 
 function renderDashboard(){
@@ -435,14 +373,12 @@ function renderDashboard(){
     <div class="stat-card c-blue"><div class="stat-label">Всего лидов</div><div class="stat-value">${leads.length}</div></div>
     <div class="stat-card c-green"><div class="stat-label">Общая выручка</div><div class="stat-value">${fmt(totalRev)}</div></div>
     <div class="stat-card c-orange"><div class="stat-label">Чистая прибыль</div><div class="stat-value">${fmt(totalNet)}</div></div>
-    <div class="stat-card c-purple"><div class="stat-label">Оформлено продуктов</div><div class="stat-value">${totalDone}</div></div>
-  `;
+    <div class="stat-card c-purple"><div class="stat-label">Оформлено продуктов</div><div class="stat-value">${totalDone}</div></div>`;
   document.getElementById('product-grid').innerHTML=PRODS.map(p=>{
     let cnt=0,r=0;leads.forEach(l=>(l.products||[]).forEach(lp=>{if(lp.key===p.key&&lp.status==='done'){cnt++;r+=p.rev;}}));
     return`<div class="prod-stat"><div><div class="prod-stat-name">${p.name}</div><div class="prod-stat-rev">${fmt(r)}</div></div><div class="prod-stat-count">${cnt}</div></div>`;
   }).join('');
-  const recent=[...leads].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
-  document.getElementById('dash-tbody').innerHTML=leadsRows(recent);
+  document.getElementById('dash-tbody').innerHTML=leadsRows([...leads].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8));
 }
 
 function renderLeads(){
@@ -452,25 +388,24 @@ function renderLeads(){
   const df=document.getElementById('f-from')?.value||'';
   const dt=document.getElementById('f-to')?.value||'';
   let leads=[...leadsCache].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  if(q) leads=leads.filter(l=>l.name.toLowerCase().includes(q)||(l.phone||'').includes(q)||(l.invited_by||'').toLowerCase().includes(q));
-  if(pf) leads=leads.filter(l=>(l.products||[]).some(p=>p.key===pf));
-  if(sf) leads=leads.filter(l=>(l.products||[]).some(p=>p.status===sf));
-  if(df) leads=leads.filter(l=>l.created_at>=df);
-  if(dt) leads=leads.filter(l=>l.created_at<=dt+'T23:59:59');
+  if(q)leads=leads.filter(l=>l.name.toLowerCase().includes(q)||(l.phone||'').includes(q)||(l.invited_by||'').toLowerCase().includes(q));
+  if(pf)leads=leads.filter(l=>(l.products||[]).some(p=>p.key===pf));
+  if(sf)leads=leads.filter(l=>(l.products||[]).some(p=>p.status===sf));
+  if(df)leads=leads.filter(l=>l.created_at>=df);
+  if(dt)leads=leads.filter(l=>l.created_at<=dt+'T23:59:59');
   document.getElementById('leads-sub').textContent=leads.length+' лидов';
   document.getElementById('leads-tbody').innerHTML=leadsRows(leads);
 }
 
 function leadsRows(leads){
-  if(!leads.length) return`<tr><td colspan="7"><div class="empty"><div class="empty-icon">◈</div><div>Лидов нет</div></div></td></tr>`;
+  if(!leads.length)return`<tr><td colspan="7"><div class="empty"><div class="empty-icon">◈</div><div>Лидов нет</div></div></td></tr>`;
   return leads.map(l=>{
     const f=calcFin(l);
     const badges=(l.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{const pr=PRODS.find(x=>x.key===p.key);return`<span class="badge badge-${p.status}">${pr?pr.short:p.key}</span>`;}).join('');
     const nc=f.net>=0?'var(--green)':'var(--red)';
     const dt=l.created_at?new Date(l.created_at).toLocaleDateString('ru-RU'):'—';
     return`<tr onclick="openDetail('${l.id}')">
-      <td style="font-weight:600">${l.name}</td>
-      <td style="color:var(--text2);font-size:.8rem">${l.phone||'—'}</td>
+      <td style="font-weight:600">${l.name}</td><td style="color:var(--text2);font-size:.8rem">${l.phone||'—'}</td>
       <td style="color:var(--text2);font-size:.8rem">${l.invited_by||'—'}</td>
       <td>${badges||'<span style="color:var(--text3);font-size:.75rem">нет</span>'}</td>
       <td style="font-family:var(--font-mono);color:var(--green)">${f.rev>0?'+'+fmt(f.rev):'—'}</td>
@@ -481,47 +416,38 @@ function leadsRows(leads){
 }
 
 function openDetail(id){
-  currentId=id;
-  const lead=leadsCache.find(l=>l.id===id);if(!lead) return;
+  currentId=id;const lead=leadsCache.find(l=>l.id===id);if(!lead)return;
   const f=calcFin(lead);
   document.getElementById('detail-name').textContent=lead.name;
   document.getElementById('detail-date').textContent=lead.created_at?new Date(lead.created_at).toLocaleDateString('ru-RU'):'';
-  document.getElementById('d-info').innerHTML=`
-    <div class="detail-card-title">Информация</div>
+  document.getElementById('d-info').innerHTML=`<div class="detail-card-title">Информация</div>
     <div class="detail-row"><div class="detail-key">📱 Телефон</div><div class="detail-val">${lead.phone||'—'}</div></div>
     <div class="detail-row"><div class="detail-key">👤 Пригласил</div><div class="detail-val">${lead.invited_by||'—'}</div></div>
     <div class="detail-row"><div class="detail-key">🤝 Лидовод</div><div class="detail-val">${lead.has_referrer?'Да (-3 000 ₽)':'Нет'}</div></div>
     <div class="detail-row"><div class="detail-key">📅 Добавлен</div><div class="detail-val">${lead.created_at?new Date(lead.created_at).toLocaleDateString('ru-RU'):'—'}</div></div>
-    ${lead.notes?`<div class="detail-row"><div class="detail-key">📝 Заметки</div><div class="detail-val" style="font-size:.8rem;color:var(--text2)">${lead.notes}</div></div>`:''}
-  `;
-  const prodsHtml=(lead.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{
-    const pr=PRODS.find(x=>x.key===p.key);if(!pr) return'';
-    return`<div class="prod-detail-item">
-      <div class="prod-detail-left"><div class="status-dot dot-${p.status}"></div>
-        <div><div class="prod-detail-name">${pr.name}</div>${p.date?`<div class="prod-detail-date">${p.date}</div>`:''}</div>
-      </div>
+    ${lead.notes?`<div class="detail-row"><div class="detail-key">📝 Заметки</div><div class="detail-val" style="font-size:.8rem;color:var(--text2)">${lead.notes}</div></div>`:''}`;
+  const ph=(lead.products||[]).filter(p=>p.status&&p.status!=='none').map(p=>{
+    const pr=PRODS.find(x=>x.key===p.key);if(!pr)return'';
+    return`<div class="prod-detail-item"><div class="prod-detail-left"><div class="status-dot dot-${p.status}"></div>
+      <div><div class="prod-detail-name">${pr.name}</div>${p.date?`<div class="prod-detail-date">${p.date}</div>`:''}</div></div>
       <div style="display:flex;align-items:center;gap:10px">
         ${p.status==='done'?`<span style="font-family:var(--font-mono);color:var(--green);font-size:.8rem">+${fmt(pr.rev)}</span>`:''}
         <span class="badge badge-${p.status}">${p.status==='waiting'?'⏳ Ожидает':p.status==='done'?'✅ Оформлен':'❌ Отказ'}</span>
-      </div>
-    </div>`;
+      </div></div>`;
   }).join('');
-  document.getElementById('d-prods').innerHTML=`<div class="detail-card-title">Продукты</div>${prodsHtml||'<div style="color:var(--text3);font-size:.83rem;padding:12px 0">Продукты не добавлены</div>'}`;
+  document.getElementById('d-prods').innerHTML=`<div class="detail-card-title">Продукты</div>${ph||'<div style="color:var(--text3);font-size:.83rem;padding:12px 0">Продукты не добавлены</div>'}`;
   const nc=f.net>=0?'var(--green)':'var(--red)';
-  document.getElementById('d-fin').innerHTML=`
-    <div class="detail-card-title">Финансы</div>
+  document.getElementById('d-fin').innerHTML=`<div class="detail-card-title">Финансы</div>
     <div class="fin-row"><div class="fin-key">Выручка</div><div class="fin-val-pos">+${fmt(f.rev)}</div></div>
     <div class="fin-row"><div class="fin-key">Затраты ЦД</div><div class="fin-val-neg">-${fmt(f.cd)}</div></div>
     <div class="fin-row"><div class="fin-key">Доплата лиду</div><div class="fin-val-neg">-${fmt(f.dopl)}</div></div>
     <div class="fin-row"><div class="fin-key">Лидовод</div><div class="fin-val-neg">-${fmt(f.lid)}</div></div>
-    <div class="fin-total"><div class="fin-total-key">Чистая прибыль</div><div class="fin-total-val" style="color:${nc}">${f.net>=0?'+':''}${fmt(f.net)}</div></div>
-  `;
+    <div class="fin-total"><div class="fin-total-key">Чистая прибыль</div><div class="fin-total-val" style="color:${nc}">${f.net>=0?'+':''}${fmt(f.net)}</div></div>`;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-detail').classList.add('active');
 }
 
-// MODAL
 function prodsForm(existing){
   return PRODS.map(p=>{
     const ex=(existing||[]).find(x=>x.key===p.key)||{};
@@ -548,9 +474,8 @@ function openAddModal(){
   document.getElementById('modal-overlay').classList.add('open');
   setTimeout(()=>document.getElementById('fi-name').focus(),100);
 }
-
 function openEditModal(id){
-  const lead=leadsCache.find(l=>l.id===id);if(!lead) return;
+  const lead=leadsCache.find(l=>l.id===id);if(!lead)return;
   document.getElementById('modal-title').textContent='Редактировать лид';
   document.getElementById('edit-id').value=id;
   document.getElementById('fi-name').value=lead.name;
@@ -562,7 +487,6 @@ function openEditModal(id){
   document.getElementById('prods-form').innerHTML=prodsForm(lead.products||[]);
   document.getElementById('modal-overlay').classList.add('open');
 }
-
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
 
 async function saveLead(){
@@ -571,19 +495,20 @@ async function saveLead(){
   const products=PRODS.map(p=>({key:p.key,status:document.getElementById('ps-'+p.key)?.value||'none',date:document.getElementById('pd-'+p.key)?.value||''})).filter(p=>p.status!=='none');
   const editId=document.getElementById('edit-id').value;
   const dateVal=document.getElementById('fi-date').value;
+  const obj={name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()};
   if(editId){
     const idx=leadsCache.findIndex(l=>l.id===editId);
-    if(idx!==-1) leadsCache[idx]={...leadsCache[idx],name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':leadsCache[idx].created_at};
-    closeModal();showToast('Лид обновлён ✓');openDetail(editId);
-  } else {
-    leadsCache.push({id:genId(),name,phone:document.getElementById('fi-phone').value,invited_by:document.getElementById('fi-invited').value,has_referrer:document.getElementById('fi-referrer').value==='1',notes:document.getElementById('fi-notes').value,products,created_at:dateVal?dateVal+'T12:00:00':new Date().toISOString()});
-    closeModal();showToast('Лид добавлен ✓');renderDashboard();
+    if(idx!==-1)leadsCache[idx]={...leadsCache[idx],...obj};
+    closeModal();renderDashboard();openDetail(editId);
+  }else{
+    leadsCache.push({id:genId(),...obj});
+    closeModal();renderDashboard();
   }
   await apiSaveLeads(leadsCache);
 }
 
 async function deleteLead(id){
-  if(!confirm('Удалить лида? Это нельзя отменить.')) return;
+  if(!confirm('Удалить лида? Это нельзя отменить.'))return;
   leadsCache=leadsCache.filter(l=>l.id!==id);
   await apiSaveLeads(leadsCache);
   showToast('Лид удалён');showPage('leads');
@@ -593,12 +518,6 @@ function clearFilters(){
   ['f-search','f-from','f-to'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   ['f-product','f-status'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   renderLeads();
-}
-
-function showToast(msg,err=false){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast'+(err?' error':'');
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
